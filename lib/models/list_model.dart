@@ -1,31 +1,65 @@
 class Welcome {
-  int id;
-  String title;
-  double price;
-  String description;
-  Category category;
-  String image;
-  Rating rating;
+  int? id;
+  String? title;
+  double? price;
+  String? description;
+  String? category;
+  String? image;
+  Rating? rating;
 
-  Welcome({
-    required this.id,
-    required this.title,
-    required this.price,
-    required this.description,
-    required this.category,
-    required this.image,
-    required this.rating,
-  });
+  Welcome(
+      {this.id,
+      this.title,
+      this.price,
+      this.description,
+      this.category,
+      this.image,
+      this.rating});
+
+  //created from json function
+  Welcome.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    title = json['title'];
+    price = json['price'];
+    description = json['description'];
+    category = json['category'];
+    image = json['image'];
+    rating = json['rating'] != null ? Rating.fromJson(json['rating']) : null;
+  }
+
+//  created to json function
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = this.id;
+    data['title'] = this.title;
+    data['price'] = this.price;
+    data['description'] = this.description;
+    data['category'] = this.category;
+    data['image'] = this.image;
+    if (this.rating != null) {
+      data['rating'] = this.rating!.toJson();
+    }
+    return data;
+  }
 }
 
-enum Category { ELECTRONICS, JEWELERY, MEN_S_CLOTHING, WOMEN_S_CLOTHING }
-
 class Rating {
-  double rate;
-  int count;
+  double? rate;
+  int? count;
 
-  Rating({
-    required this.rate,
-    required this.count,
-  });
+  Rating({this.rate, this.count});
+
+  //created from json
+  Rating.fromJson(Map<String, dynamic> json) {
+    rate = json['rate'];
+    count = json['count'];
+  }
+
+//created tojson function
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['rate'] = this.rate;
+    data['count'] = this.count;
+    return data;
+  }
 }
